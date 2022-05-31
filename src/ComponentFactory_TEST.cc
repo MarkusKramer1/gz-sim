@@ -16,16 +16,16 @@
 */
 
 #include <gtest/gtest.h>
-#include "ignition/gazebo/test_config.hh"
-#include "ignition/gazebo/components/Component.hh"
-#include "ignition/gazebo/components/Factory.hh"
-#include "ignition/gazebo/components/Name.hh"
-#include "ignition/gazebo/components/Pose.hh"
+#include "gz/sim/test_config.hh"
+#include "gz/sim/components/Component.hh"
+#include "gz/sim/components/Factory.hh"
+#include "gz/sim/components/Name.hh"
+#include "gz/sim/components/Pose.hh"
 
 #include "../test/helpers/EnvTestFixture.hh"
 
-using namespace ignition;
-using namespace gazebo;
+using namespace gz;
+using namespace sim;
 
 /////////////////////////////////////////////////
 class ComponentFactoryTest : public InternalFixture<::testing::Test>
@@ -123,7 +123,7 @@ TEST_F(ComponentFactoryTest, New)
     // Test constructing a component with pre-defined data
 
     // Test a valid pre-defined component
-    ignition::math::Pose3d pose(1, 2, 3, 4, 5, 6);
+    gz::math::Pose3d pose(1, 2, 3, 4, 5, 6);
     components::Pose poseComp(pose);
     auto comp = factory->New(components::Pose::typeId, &poseComp);
     ASSERT_NE(nullptr, comp);

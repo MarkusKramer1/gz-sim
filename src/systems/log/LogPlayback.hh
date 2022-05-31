@@ -14,27 +14,27 @@
  * limitations under the License.
  *
 */
-#ifndef IGNITION_GAZEBO_SYSTEMS_LOGPLAYBACK_HH_
-#define IGNITION_GAZEBO_SYSTEMS_LOGPLAYBACK_HH_
+#ifndef GZ_SIM_SYSTEMS_LOGPLAYBACK_HH_
+#define GZ_SIM_SYSTEMS_LOGPLAYBACK_HH_
 
 #include <memory>
 
-#include <ignition/gazebo/config.hh>
-#include <ignition/gazebo/System.hh>
+#include <gz/sim/config.hh>
+#include <gz/sim/System.hh>
 
-namespace ignition
+namespace gz
 {
-namespace gazebo
+namespace sim
 {
 // Inline bracket to help doxygen filtering.
-inline namespace IGNITION_GAZEBO_VERSION_NAMESPACE {
+inline namespace GZ_SIM_VERSION_NAMESPACE {
 namespace systems
 {
   // Forward declarations.
   class LogPlaybackPrivate;
 
   /// \class LogPlayback LogPlayback.hh
-  ///   ignition/gazebo/systems/log/LogPlayback.hh
+  ///   gz/sim/systems/log/LogPlayback.hh
   /// \brief Log state playback
   class LogPlayback:
     public System,

@@ -14,30 +14,30 @@
  * limitations under the License.
  *
 */
-#ifndef IGNITION_GAZEBO_SYSTEMMANAGER_HH_
-#define IGNITION_GAZEBO_SYSTEMMANAGER_HH_
+#ifndef GZ_SIM_SYSTEMMANAGER_HH_
+#define GZ_SIM_SYSTEMMANAGER_HH_
 
 #include <memory>
 #include <string>
 #include <vector>
 
-#include "ignition/gazebo/config.hh"
-#include "ignition/gazebo/EntityComponentManager.hh"
-#include "ignition/gazebo/Export.hh"
-#include "ignition/gazebo/SystemLoader.hh"
-#include "ignition/gazebo/Types.hh"
+#include "gz/sim/config.hh"
+#include "gz/sim/EntityComponentManager.hh"
+#include "gz/sim/Export.hh"
+#include "gz/sim/SystemLoader.hh"
+#include "gz/sim/Types.hh"
 
 #include "SystemInternal.hh"
 
-namespace ignition
+namespace gz
 {
-  namespace gazebo
+  namespace sim
   {
     // Inline bracket to help doxygen filtering.
-    inline namespace IGNITION_GAZEBO_VERSION_NAMESPACE {
+    inline namespace GZ_SIM_VERSION_NAMESPACE {
 
     /// \brief Used to load / unload sysetms as well as iterate over them.
-    class IGNITION_GAZEBO_VISIBLE SystemManager
+    class GZ_GAZEBO_VISIBLE SystemManager
     {
       /// \brief Constructor
       /// \param[in] _systemLoader A pointer to a SystemLoader to load plugins
@@ -175,6 +175,6 @@ namespace ignition
       private: EventManager *eventMgr;
     };
     }
-  }  // namespace gazebo
-}  // namespace ignition
-#endif  // IGNITION_GAZEBO_SYSTEMINTERNAL_HH_
+  }  // namespace sim
+}  // namespace gz
+#endif  // GZ_SIM_SYSTEMINTERNAL_HH_

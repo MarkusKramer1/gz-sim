@@ -37,12 +37,12 @@ set(gui_sources
   PARENT_SCOPE
 )
 
-ign_add_component(ign
+ign_add_component(gz
   SOURCES
     ign.cc
     cmd/ModelCommandAPI.cc
-  GET_TARGET_NAME ign_lib_target)
-target_link_libraries(${ign_lib_target}
+  GET_TARGET_NAME gz_lib_target)
+target_link_libraries(${gz_lib_target}
   PRIVATE
     ${PROJECT_LIBRARY_TARGET_NAME}
     ignition-common${IGN_COMMON_VER}::ignition-common${IGN_COMMON_VER}
@@ -163,10 +163,10 @@ target_include_directories(${PROJECT_LIBRARY_TARGET_NAME}
 )
 
 add_dependencies(${PROJECT_LIBRARY_TARGET_NAME}
-  ignition-gazebo_private_msgs
+  gz-sim_private_msgs
 )
 
-set(IGNITION_GAZEBO_PLUGIN_INSTALL_DIR
+set(GZ_SIM_PLUGIN_INSTALL_DIR
   ${CMAKE_INSTALL_PREFIX}/${IGN_LIB_INSTALL_DIR}/ign-${IGN_DESIGNATION}-${PROJECT_VERSION_MAJOR}/plugins
 )
 
@@ -199,7 +199,7 @@ foreach(CMD_TEST
   endif()
 
   add_dependencies(${CMD_TEST}
-    ${ign_lib_target}
+    ${gz_lib_target}
     TestModelSystem
     TestSensorSystem
     TestWorldSystem
@@ -209,10 +209,10 @@ foreach(CMD_TEST
       "BREW_RUBY=\"${BREW_RUBY} \"")
 
   target_compile_definitions(${CMD_TEST} PRIVATE
-      "IGN_PATH=\"${IGNITION-TOOLS2_BINARY_DIRS}\"")
+      "GZ_PATH=\"${IGNITION-TOOLS2_BINARY_DIRS}\"")
 
   set(_env_vars)
-  list(APPEND _env_vars "IGN_CONFIG_PATH=${CMAKE_BINARY_DIR}/test/conf")
+  list(APPEND _env_vars "GZ_CONFIG_PATH=${CMAKE_BINARY_DIR}/test/conf")
   list(APPEND _env_vars "IGN_GAZEBO_SYSTEM_PLUGIN_PATH=$<TARGET_FILE_DIR:TestModelSystem>")
 
   set_tests_properties(${CMD_TEST} PROPERTIES
@@ -223,4 +223,3 @@ endforeach()
 if(NOT WIN32)
   add_subdirectory(cmd)
 endif()
-

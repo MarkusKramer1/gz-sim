@@ -17,7 +17,7 @@
 
 #include "LogicalCamera.hh"
 
-#include <ignition/msgs/logical_camera_image.pb.h>
+#include <gz/msgs/logical_camera_image.pb.h>
 
 #include <map>
 #include <string>
@@ -25,33 +25,33 @@
 #include <unordered_set>
 #include <utility>
 
-#include <ignition/common/Profiler.hh>
-#include <ignition/plugin/Register.hh>
+#include <gz/common/Profiler.hh>
+#include <gz/plugin/Register.hh>
 
 #include <sdf/Sensor.hh>
 
-#include <ignition/math/Helpers.hh>
-#include <ignition/transport/Node.hh>
+#include <gz/math/Helpers.hh>
+#include <gz/transport/Node.hh>
 
-#include <ignition/sensors/SensorFactory.hh>
-#include <ignition/sensors/LogicalCameraSensor.hh>
+#include <gz/sensors/SensorFactory.hh>
+#include <gz/sensors/LogicalCameraSensor.hh>
 
-#include "ignition/gazebo/components/LogicalCamera.hh"
-#include "ignition/gazebo/components/Name.hh"
-#include "ignition/gazebo/components/Model.hh"
-#include "ignition/gazebo/components/ParentEntity.hh"
-#include "ignition/gazebo/components/Pose.hh"
-#include "ignition/gazebo/components/Sensor.hh"
-#include "ignition/gazebo/components/World.hh"
-#include "ignition/gazebo/EntityComponentManager.hh"
-#include "ignition/gazebo/Util.hh"
+#include "gz/sim/components/LogicalCamera.hh"
+#include "gz/sim/components/Name.hh"
+#include "gz/sim/components/Model.hh"
+#include "gz/sim/components/ParentEntity.hh"
+#include "gz/sim/components/Pose.hh"
+#include "gz/sim/components/Sensor.hh"
+#include "gz/sim/components/World.hh"
+#include "gz/sim/EntityComponentManager.hh"
+#include "gz/sim/Util.hh"
 
-using namespace ignition;
-using namespace gazebo;
+using namespace gz;
+using namespace sim;
 using namespace systems;
 
 /// \brief Private LogicalCamera data class.
-class ignition::gazebo::systems::LogicalCameraPrivate
+class gz::sim::systems::LogicalCameraPrivate
 {
   /// \brief A map of logicalCamera entities
   public: std::unordered_map<Entity,
@@ -114,7 +114,7 @@ void LogicalCamera::PreUpdate(const UpdateInfo &/*_info*/,
     auto it = this->dataPtr->entitySensorMap.find(entity);
     if (it == this->dataPtr->entitySensorMap.end())
     {
-      ignerr << "Entity [" << entity
+      gzerr << "Entity [" << entity
              << "] isn't in sensor map, this shouldn't happen." << std::endl;
       continue;
     }
@@ -133,7 +133,7 @@ void LogicalCamera::PostUpdate(const UpdateInfo &_info,
   // \TODO(anyone) Support rewind
   if (_info.dt < std::chrono::steady_clock::duration::zero())
   {
-    ignwarn << "Detected jump back in time ["
+    gzwarn << "Detected jump back in time ["
         << std::chrono::duration_cast<std::chrono::seconds>(_info.dt).count()
         << "s]. System may not work properly." << std::endl;
   }
@@ -178,7 +178,7 @@ void LogicalCameraPrivate::AddLogicalCamera(
       sensors::LogicalCameraSensor>(data);
   if (nullptr == sensor)
   {
-    ignerr << "Failed to create sensor [" << sensorScopedName << "]"
+    gzerr << "Failed to create sensor [" << sensorScopedName << "]"
            << std::endl;
     return;
   }
@@ -265,7 +265,7 @@ void LogicalCameraPrivate::UpdateLogicalCameras(
         }
         else
         {
-          ignerr << "Failed to update logicalCamera: " << _entity << ". "
+          gzerr << "Failed to update logicalCamera: " << _entity << ". "
                  << "Entity not found." << std::endl;
         }
 
@@ -285,7 +285,7 @@ void LogicalCameraPrivate::RemoveLogicalCameraEntities(
         auto sensorIt = this->entitySensorMap.find(_entity);
         if (sensorIt == this->entitySensorMap.end())
         {
-          ignerr << "Internal error, missing logicalCamera sensor for entity ["
+          gzerr << "Internal error, missing logicalCamera sensor for entity ["
                  << _entity << "]" << std::endl;
           return true;
         }
@@ -301,6 +301,9 @@ IGNITION_ADD_PLUGIN(LogicalCamera, System,
   LogicalCamera::ISystemPostUpdate
 )
 
+IGNITION_ADD_PLUGIN_ALIAS(LogicalCamera,
+    "gz::sim::systems::LogicalCamera")
 
+// TODO(CH3): Deprecated, remove on version 8
 IGNITION_ADD_PLUGIN_ALIAS(LogicalCamera,
     "ignition::gazebo::systems::LogicalCamera")

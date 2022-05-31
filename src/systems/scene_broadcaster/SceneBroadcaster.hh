@@ -14,28 +14,28 @@
  * limitations under the License.
  *
 */
-#ifndef IGNITION_GAZEBO_SCENEBROADCASTER_SYSTEM_HH_
-#define IGNITION_GAZEBO_SCENEBROADCASTER_SYSTEM_HH_
+#ifndef GZ_SIM_SCENEBROADCASTER_SYSTEM_HH_
+#define GZ_SIM_SCENEBROADCASTER_SYSTEM_HH_
 
 #include <memory>
 #include <vector>
-#include <ignition/gazebo/config.hh>
-#include <ignition/gazebo/System.hh>
+#include <gz/sim/config.hh>
+#include <gz/sim/System.hh>
 
-namespace ignition
+namespace gz
 {
-namespace gazebo
+namespace sim
 {
 // Inline bracket to help doxygen filtering.
-inline namespace IGNITION_GAZEBO_VERSION_NAMESPACE {
+inline namespace GZ_SIM_VERSION_NAMESPACE {
 namespace systems
 {
   class SceneBroadcasterPrivate;
 
   /** \class SceneBroadcaster SceneBroadcaster.hh \
-   * ignition/gazebo/systems/SceneBroadcaster.hh
+   * gz/sim/systems/SceneBroadcaster.hh
   **/
-  /// \brief System which periodically publishes an ignition::msgs::Scene
+  /// \brief System which periodically publishes an gz::msgs::Scene
   /// message with updated information.
   class SceneBroadcaster final:
     public System,

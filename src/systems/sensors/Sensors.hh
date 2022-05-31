@@ -14,28 +14,28 @@
  * limitations under the License.
  *
 */
-#ifndef IGNITION_GAZEBO_SYSTEMS_SENSORS_HH_
-#define IGNITION_GAZEBO_SYSTEMS_SENSORS_HH_
+#ifndef GZ_SIM_SYSTEMS_SENSORS_HH_
+#define GZ_SIM_SYSTEMS_SENSORS_HH_
 
 #include <memory>
 #include <string>
 
-#include <ignition/gazebo/config.hh>
-#include <ignition/gazebo/System.hh>
+#include <gz/sim/config.hh>
+#include <gz/sim/System.hh>
 #include <sdf/Sensor.hh>
 
-namespace ignition
+namespace gz
 {
-namespace gazebo
+namespace sim
 {
 // Inline bracket to help doxygen filtering.
-inline namespace IGNITION_GAZEBO_VERSION_NAMESPACE {
+inline namespace GZ_SIM_VERSION_NAMESPACE {
 namespace systems
 {
   // Forward declarations.
   class SensorsPrivate;
 
-  /// \class Sensors Sensors.hh ignition/gazebo/systems/Sensors.hh
+  /// \class Sensors Sensors.hh gz/sim/systems/Sensors.hh
   /// \brief A system that manages sensors.
   ///
   /// ## System Parameters

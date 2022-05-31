@@ -19,27 +19,27 @@
 #ifdef _MSC_VER
 #pragma warning(push, 0)
 #endif
-#include <ignition/msgs/double.pb.h>
+#include <gz/msgs/double.pb.h>
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
-#include <ignition/common/Console.hh>
-#include <ignition/gui/Application.hh>
-#include <ignition/gui/MainWindow.hh>
-#include <ignition/gui/Plugin.hh>
-#include <ignition/transport/Node.hh>
-#include <ignition/utils/ExtraTestMacros.hh>
-#include <ignition/utils/SuppressWarning.hh>
+#include <gz/common/Console.hh>
+#include <gz/gui/Application.hh>
+#include <gz/gui/MainWindow.hh>
+#include <gz/gui/Plugin.hh>
+#include <gz/transport/Node.hh>
+#include <gz/utils/ExtraTestMacros.hh>
+#include <gz/utils/SuppressWarning.hh>
 
-#include "ignition/gazebo/components/Joint.hh"
-#include "ignition/gazebo/components/JointAxis.hh"
-#include "ignition/gazebo/components/JointPosition.hh"
-#include "ignition/gazebo/components/JointType.hh"
-#include "ignition/gazebo/components/Model.hh"
-#include "ignition/gazebo/components/Name.hh"
-#include "ignition/gazebo/components/ParentEntity.hh"
-#include "ignition/gazebo/EntityComponentManager.hh"
-#include "ignition/gazebo/test_config.hh"
+#include "gz/sim/components/Joint.hh"
+#include "gz/sim/components/JointAxis.hh"
+#include "gz/sim/components/JointPosition.hh"
+#include "gz/sim/components/JointType.hh"
+#include "gz/sim/components/Model.hh"
+#include "gz/sim/components/Name.hh"
+#include "gz/sim/components/ParentEntity.hh"
+#include "gz/sim/EntityComponentManager.hh"
+#include "gz/sim/test_config.hh"
 #include "../../../../test/helpers/EnvTestFixture.hh"
 
 #include "../../GuiRunner.hh"
@@ -52,7 +52,7 @@ char* g_argv[] =
   reinterpret_cast<char*>(const_cast<char*>("dummy")),
 };
 
-using namespace ignition;
+using namespace gz;
 
 /// \brief Tests for the joint position controller GUI plugin
 class Plot3D : public InternalFixture<::testing::Test>
@@ -67,9 +67,9 @@ TEST_F(Plot3D, IGN_UTILS_TEST_ENABLED_ONLY_ON_LINUX(Load))
   ASSERT_NE(nullptr, app);
   app->AddPluginPath(std::string(PROJECT_BINARY_PATH) + "/lib");
 
-  // Create GUI runner to handle gazebo::gui plugins
+  // Create GUI runner to handle sim::gui plugins
   IGN_UTILS_WARN_IGNORE__DEPRECATED_DECLARATION
-  auto runner = new gazebo::GuiRunner("test");
+  auto runner = new sim::GuiRunner("test");
   IGN_UTILS_WARN_RESUME__DEPRECATED_DECLARATION
   runner->setParent(gui::App());
 
@@ -96,12 +96,12 @@ TEST_F(Plot3D, IGN_UTILS_TEST_ENABLED_ONLY_ON_LINUX(Load))
   ASSERT_NE(nullptr, win);
 
   // Get plugin
-  auto plugins = win->findChildren<gazebo::gui::Plot3D *>();
+  auto plugins = win->findChildren<sim::gui::Plot3D *>();
   ASSERT_EQ(plugins.size(), 1);
 
   auto plugin = plugins[0];
   EXPECT_EQ("Plot3D!", plugin->Title());
-  EXPECT_EQ(gazebo::kNullEntity, plugin->TargetEntity());
+  EXPECT_EQ(sim::kNullEntity, plugin->TargetEntity());
   EXPECT_EQ(QString("banana"), plugin->TargetName())
       << plugin->TargetName().toStdString();
   EXPECT_EQ(QVector3D(0.1, 0.2, 0.3), plugin->Color());
