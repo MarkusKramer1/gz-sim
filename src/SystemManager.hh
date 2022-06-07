@@ -103,7 +103,7 @@ namespace gz
       /// Otherwise, if a system is created from in-memory rather than a plugin,
       /// that system will remain unaffected.
       /// \param[in] _info Update info corresponding to the update time
-      /// \param[in] _ecm Version of the _ecm reset to an initial state
+      /// \param[in] _ecm Version of the ECM reset to an initial state
       public: void Reset(const UpdateInfo &_info, EntityComponentManager &_ecm);
 
       /// \brief Get an vector of all systems implementing "Configure"
@@ -130,13 +130,20 @@ namespace gz
       /// \return Vector of systems.
       public: std::vector<SystemInternal> TotalByEntity(Entity _entity);
 
+      /// \brief Implementation for AddSystem functions that takes an SDF
+      /// element. This calls the AddSystemImpl that accepts an SDF Plugin.
+      /// \param[in] _system Generic representation of a system.
+      /// \param[in] _sdf SDF element.
+      private: void AddSystemImpl(SystemInternal _system,
+                                  std::shared_ptr<const sdf::Element> _sdf);
+
       /// \brief Implementation for AddSystem functions. This only adds systems
       /// to a queue, the actual addition is performed by `AddSystemToRunner` at
       /// the appropriate time.
       /// \param[in] _system Generic representation of a system.
       /// \param[in] _sdf SDF received from AddSystem.
       private: void AddSystemImpl(SystemInternal _system,
-                                  std::shared_ptr<const sdf::Element> _sdf);
+                                  const sdf::Plugin &_sdf);
 
       /// \brief All the systems.
       private: std::vector<SystemInternal> systems;
