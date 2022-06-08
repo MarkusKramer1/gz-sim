@@ -3,13 +3,13 @@ cmake_minimum_required(VERSION 3.10.2 FATAL_ERROR)
 #============================================================================
 # Initialize the project
 #============================================================================
-project(ignition-gazebo7 VERSION 7.0.0)
+project(gz-sim7 VERSION 7.0.0)
 
 #============================================================================
-# Find ignition-cmake
+# Find gz-cmake
 #============================================================================
-# If you get an error at this line, you need to install ignition-cmake
-find_package(ignition-cmake3 REQUIRED)
+# If you get an error at this line, you need to install gz-cmake
+find_package(gz-cmake3 REQUIRED)
 
 #============================================================================
 # Configure the project
@@ -65,41 +65,41 @@ ign_find_package(sdformat13 REQUIRED)
 set(SDF_VER ${sdformat13_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-plugin
-ign_find_package(ignition-plugin2 REQUIRED COMPONENTS loader register)
-set(IGN_PLUGIN_VER ${ignition-plugin2_VERSION_MAJOR})
+# Find gz-plugin
+ign_find_package(gz-plugin2 REQUIRED COMPONENTS loader register)
+set(GZ_PLUGIN_VER ${gz-plugin2_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-transport
-ign_find_package(ignition-transport12 REQUIRED COMPONENTS log)
-set(IGN_TRANSPORT_VER ${ignition-transport12_VERSION_MAJOR})
+# Find gz-transport
+ign_find_package(gz-transport12 REQUIRED COMPONENTS log)
+set(GZ_TRANSPORT_VER ${gz-transport12_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-msgs
-ign_find_package(ignition-msgs9 REQUIRED)
-set(IGN_MSGS_VER ${ignition-msgs9_VERSION_MAJOR})
+# Find gz-msgs
+ign_find_package(gz-msgs9 REQUIRED)
+set(GZ_MSGS_VER ${gz-msgs9_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-common
+# Find gz-common
 # Always use the profiler component to get the headers, regardless of status.
-ign_find_package(ignition-common5
+ign_find_package(gz-common5
   COMPONENTS
     profiler
     events
     av
   REQUIRED
 )
-set(IGN_COMMON_VER ${ignition-common5_VERSION_MAJOR})
+set(GZ_COMMON_VER ${gz-common5_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-fuel_tools
-ign_find_package(ignition-fuel_tools8 REQUIRED)
-set(IGN_FUEL_TOOLS_VER ${ignition-fuel_tools8_VERSION_MAJOR})
+# Find gz-fuel_tools
+ign_find_package(gz-fuel_tools8 REQUIRED)
+set(GZ_FUEL_TOOLS_VER ${gz-fuel_tools8_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-gui
-ign_find_package(ignition-gui7 REQUIRED)
-set(IGN_GUI_VER ${ignition-gui7_VERSION_MAJOR})
+# Find gz-gui
+ign_find_package(gz-gui7 REQUIRED)
+set(GZ_GUI_VER ${gz-gui7_VERSION_MAJOR})
 ign_find_package (Qt5
   COMPONENTS
     Core
@@ -109,19 +109,19 @@ ign_find_package (Qt5
   PKGCONFIG "Qt5Core Qt5Quick Qt5QuickControls2")
 
 #--------------------------------------
-# Find ignition-physics
-ign_find_package(ignition-physics6
+# Find gz-physics
+ign_find_package(gz-physics6
   COMPONENTS
     heightmap
     mesh
     sdf
   REQUIRED
 )
-set(IGN_PHYSICS_VER ${ignition-physics6_VERSION_MAJOR})
+set(GZ_PHYSICS_VER ${gz-physics6_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-sensors
-ign_find_package(ignition-sensors7 REQUIRED
+# Find gz-sensors
+ign_find_package(gz-sensors7 REQUIRED
   # component order is important
   COMPONENTS
     # non-rendering
@@ -146,28 +146,28 @@ ign_find_package(ignition-sensors7 REQUIRED
     thermal_camera
     wide_angle_camera
 )
-set(IGN_SENSORS_VER ${ignition-sensors7_VERSION_MAJOR})
+set(GZ_SENSORS_VER ${gz-sensors7_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-rendering
-ign_find_package(ignition-rendering7 REQUIRED)
-set(IGN_RENDERING_VER ${ignition-rendering7_VERSION_MAJOR})
+# Find gz-rendering
+ign_find_package(gz-rendering7 REQUIRED)
+set(GZ_RENDERING_VER ${gz-rendering7_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-math
-ign_find_package(ignition-math7 REQUIRED COMPONENTS eigen3)
-set(IGN_MATH_VER ${ignition-math7_VERSION_MAJOR})
+# Find gz-math
+ign_find_package(gz-math7 REQUIRED COMPONENTS eigen3)
+set(GZ_MATH_VER ${gz-math7_VERSION_MAJOR})
 
 #--------------------------------------
-# Find ignition-tools
-ign_find_package(ignition-tools2
+# Find gz-tools
+ign_find_package(gz-tools2
                  REQUIRED
-                 PKGCONFIG "ignition-tools2")
+                 PKGCONFIG "gz-tools2")
 
 #--------------------------------------
-# Find ignition-utils
-ign_find_package(ignition-utils2 REQUIRED COMPONENTS cli)
-set(IGN_UTILS_VER ${ignition-utils2_VERSION_MAJOR})
+# Find gz-utils
+ign_find_package(gz-utils2 REQUIRED COMPONENTS cli)
+set(GZ_UTILS_VER ${gz-utils2_VERSION_MAJOR})
 
 #--------------------------------------
 # Find protobuf
@@ -177,7 +177,7 @@ ign_find_package(IgnProtobuf
                  REQUIRED
                  COMPONENTS all
                  PRETTY Protobuf)
-set(Protobuf_IMPORT_DIRS ${ignition-msgs9_INCLUDE_DIRS})
+set(Protobuf_IMPORT_DIRS ${gz-msgs9_INCLUDE_DIRS})
 
 #--------------------------------------
 # Find python

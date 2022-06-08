@@ -58,7 +58,7 @@ namespace gz
     class SimulationRunner;
 
     // Private data for Server
-    class GZ_GAZEBO_HIDDEN ServerPrivate
+    class GZ_SIM_HIDDEN ServerPrivate
     {
       /// \brief Constructor
       public: ServerPrivate();
@@ -122,7 +122,7 @@ namespace gz
       /// string and return value of false will be used if the resource could
       /// not be found.
       ///
-      /// Fuel will be checked and then the GZ_GAZEBO_RESOURCE_PATH environment
+      /// Fuel will be checked and then the GZ_SIM_RESOURCE_PATH environment
       /// variable paths. This service will not check for files relative to
       /// working directory of the Gazebo server.
       ///
