@@ -80,19 +80,49 @@ function(gz_add_system system_name)
   # files, we also install an unversioned symlink into the same versioned folder.
   #
   # NOTE(CH3): On migration of the CMake project name, ignition-gazebo -> gz-sim
-  # so the generated library target WILL CHANGE
-  set(versioned ${CMAKE_SHARED_LIBRARY_PREFIX}${system_target}${CMAKE_SHARED_LIBRARY_SUFFIX})
-  set(unversioned ${CMAKE_SHARED_LIBRARY_PREFIX}${PROJECT_NAME_NO_VERSION_LOWER}-${system_name}${CMAKE_SHARED_LIBRARY_SUFFIX})
+  # so the generated system_target var WILL CHANGE accordingly
+  set(versioned_gz ${CMAKE_SHARED_LIBRARY_PREFIX}${system_target}${CMAKE_SHARED_LIBRARY_SUFFIX})
+  set(unversioned_gz ${CMAKE_SHARED_LIBRARY_PREFIX}${PROJECT_NAME_NO_VERSION_LOWER}-${system_name}${CMAKE_SHARED_LIBRARY_SUFFIX})
+
+  string(REPLACE "gz-sim" "ignition-gazebo" versioned_ign ${versioned_gz})
+  string(REPLACE "gz" "ignition" versioned_ign ${versioned_gz})
+
+  string(REPLACE "gz-sim" "ignition-gazebo" unversioned_ign ${unversioned_gz})
+  string(REPLACE "gz" "ignition" unversioned_ign ${unversioned_gz})
+
+  # TODO(CH3): Deprecated. Remove the following comment on project name migration.
+  # NOTE(CH3): These won't work until the CMake project names are migrated
+  # They assume gz -> ignition, but before the project name migration it's
+  # supposed to be ignition -> gz
   if(WIN32)
     # symlinks on Windows require admin priviledges, fallback to copy
     ADD_CUSTOM_COMMAND(TARGET ${system_target} POST_BUILD
       COMMAND "${CMAKE_COMMAND}" -E copy
         "$<TARGET_FILE:${system_target}>"
-        "$<TARGET_FILE_DIR:${system_target}>/${unversioned}")
+        "$<TARGET_FILE_DIR:${system_target}>/${unversioned_gz}")
+
+    # TODO(CH3): Deprecated. Remove on tock.
+    # Copy the versioned and unversioned gz -> ignition
+    ADD_CUSTOM_COMMAND(TARGET ${system_target} POST_BUILD
+      COMMAND "${CMAKE_COMMAND}" -E copy
+        "$<TARGET_FILE:${versioned_gz}>"
+        "$<TARGET_FILE_DIR:${system_target}>/${versioned_ign}")
+    ADD_CUSTOM_COMMAND(TARGET ${system_target} POST_BUILD
+      COMMAND "${CMAKE_COMMAND}" -E copy
+      "$<TARGET_FILE:${unversioned_gz}>"
+      "$<TARGET_FILE_DIR:${system_target}>/${unversioned_ign}")
   else()
     file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
-    EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E create_symlink ${versioned} ${unversioned} WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
-    INSTALL(FILES ${PROJECT_BINARY_DIR}/lib/${unversioned} DESTINATION ${GZ_SIM_PLUGIN_INSTALL_DIR})
+    EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E create_symlink ${versioned_gz} ${unversioned_gz} WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
+    INSTALL(FILES ${PROJECT_BINARY_DIR}/lib/${unversioned_gz} DESTINATION ${GZ_SIM_PLUGIN_INSTALL_DIR})
+
+    # TODO(CH3): Deprecated. Remove on tock.
+    # Symlink the versioned and unversioned gz -> ignition
+    EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E create_symlink ${versioned_gz} ${versioned_ign} WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
+    INSTALL(FILES ${PROJECT_BINARY_DIR}/lib/${versioned_ign} DESTINATION ${GZ_SIM_PLUGIN_INSTALL_DIR})
+
+    EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E create_symlink ${versioned_gz} ${unversioned_ign} WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
+    INSTALL(FILES ${PROJECT_BINARY_DIR}/lib/${unversioned_ign} DESTINATION ${GZ_SIM_PLUGIN_INSTALL_DIR})
   endif()
 endfunction()
 
