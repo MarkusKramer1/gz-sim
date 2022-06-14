@@ -20,26 +20,17 @@
 #include <string>
 #include <vector>
 
-#include <sdf/Model.hh>
+#include <sdf/Element.hh>
 #include <sdf/Root.hh>
-#include <sdf/World.hh>
-
 #include <gz/transport/Node.hh>
 #include <gz/utils/ExtraTestMacros.hh>
 
-#include "gz/sim/Entity.hh"
-#include "gz/sim/EntityComponentManager.hh"
-#include "gz/sim/EventManager.hh"
-#include "gz/sim/SdfEntityCreator.hh"
 #include "gz/sim/Server.hh"
 #include "gz/sim/SystemLoader.hh"
-#include "gz/sim/Types.hh"
-#include "gz/sim/test_config.hh"
+#include "gz/sim/SystemPluginPtr.hh"
 
-#include "gz/sim/components/Model.hh"
-#include "gz/sim/components/Name.hh"
-#include "gz/sim/components/Pose.hh"
-#include "gz/sim/components/World.hh"
+#include <gz/sim/components/Name.hh>
+#include <gz/sim/components/Pose.hh>
 
 #include "plugins/MockSystem.hh"
 #include "helpers/EnvTestFixture.hh"
@@ -47,7 +38,6 @@
 using namespace gz;
 using namespace sim;
 using namespace std::chrono_literals;
-namespace components = gz::sim::components;
 
 //////////////////////////////////////////////////
 class ResetFixture: public InternalFixture<InternalFixture<::testing::Test>>
@@ -191,7 +181,7 @@ TEST_F(ResetFixture, IGN_UTILS_TEST_DISABLED_ON_MAC(HandleReset))
   worldReset();
 
   // It takes two iterations for this to propage,
-  // the first is for the message to be recieved and internal state setup
+  // the first is for the message to be received and internal state setup
   server.Run(true, 1, false);
   EXPECT_EQ(1u, this->mockSystem->configureCallCount);
   EXPECT_EQ(0u, this->mockSystem->resetCallCount);
