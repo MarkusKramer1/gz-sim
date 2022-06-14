@@ -1,11 +1,11 @@
 #ifndef PLUGIN_HH_
 #define PLUGIN_HH_
 
-#include "ignition/gazebo/Entity.hh"
-#include "ignition/gazebo/System.hh"
-#include "ignition/gazebo/Link.hh"
+#include "gz/sim/Entity.hh"
+#include "gz/sim/System.hh"
+#include "gz/sim/Link.hh"
 
-namespace ignition::gazebo {
+namespace gz::sim {
 
 // Global to track if we have reset the sim already. Used to change plugin
 // behavior.

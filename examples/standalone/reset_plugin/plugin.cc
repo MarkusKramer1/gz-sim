@@ -1,15 +1,14 @@
 #include "plugin.hh"
 
-#include <ignition/plugin/Register.hh>
+#include <gz/plugin/Register.hh>
 
-#include "ignition/gazebo/Util.hh"
-#include "ignition/gazebo/components/ContactSensorData.hh"
-#include "ignition/gazebo/components/DetachableJoint.hh"
-#include "ignition/gazebo/components/JointPositionReset.hh"
+#include "gz/sim/Util.hh"
+#include "gz/sim/components/ContactSensorData.hh"
+#include "gz/sim/components/DetachableJoint.hh"
+#include "gz/sim/components/JointPositionReset.hh"
 
-using namespace ignition;
-using namespace ignition::gazebo;
-namespace components = ignition::gazebo::components;
+using namespace gz;
+using namespace gz::sim;
 
 void TestPlugin::Configure(const Entity& entity,
                const std::shared_ptr<const sdf::Element>& sdf,
@@ -45,7 +44,7 @@ void TestPlugin::PreUpdate(const UpdateInfo& info, EntityComponentManager& ecm) 
 
   // Try grasping object with arm after 1.1 seconds
   if (!grasping_ && info.iterations > 1100) {
-    std::optional<::ignition::msgs::Contacts> contact_data_optional =
+    std::optional<::gz::msgs::Contacts> contact_data_optional =
         ecm.ComponentData<components::ContactSensorData>(
             link_collision_entity_);
 
@@ -90,9 +89,9 @@ void TestPlugin::PreUpdate(const UpdateInfo& info, EntityComponentManager& ecm) 
   component.Data()[0] = command_position_;
 }
 
-IGNITION_ADD_PLUGIN(ignition::gazebo::TestPlugin,
-                    ::ignition::gazebo::System,
-                    ignition::gazebo::TestPlugin::ISystemConfigure,
-                    ignition::gazebo::TestPlugin::ISystemPreUpdate)
+IGNITION_ADD_PLUGIN(gz::sim::TestPlugin,
+                    ::gz::sim::System,
+                    gz::sim::TestPlugin::ISystemConfigure,
+                    gz::sim::TestPlugin::ISystemPreUpdate)
 
-IGNITION_ADD_PLUGIN_ALIAS(ignition::gazebo::TestPlugin, "TestPlugin")
+IGNITION_ADD_PLUGIN_ALIAS(gz::sim::TestPlugin, "TestPlugin")
