@@ -2519,8 +2519,10 @@ void PhysicsPrivate::ResetPhysics(EntityComponentManager &_ecm)
   this->modelWorldPoses.clear();
   this->worldPoseCmdsToRemove.clear();
 
+  this->RemovePhysicsEntities(_ecm);
   this->CreatePhysicsEntities(_ecm, false);
   this->canonicalLinkModelTracker.AddAllModels(_ecm);
+
 
   // Update link pose, linear velocity, and angular velocity
   _ecm.Each<components::Link>(
@@ -2629,8 +2631,6 @@ void PhysicsPrivate::ResetPhysics(EntityComponentManager &_ecm)
         this->modelWorldPoses[_entity] = sim::worldPose(_entity, _ecm);
         return true;
       });
-
-  this->RemovePhysicsEntities(_ecm);
 }
 
 //////////////////////////////////////////////////
