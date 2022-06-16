@@ -76,7 +76,7 @@ function(gz_add_system system_name)
   install(TARGETS ${system_target} DESTINATION ${GZ_SIM_PLUGIN_INSTALL_DIR})
 
   # The library created by `ign_add_component` includes the ign-gazebo version
-  # (i.e. libgz-gazebo1-name-system.so), but for portability of SDF
+  # (i.e. libgz-sim1-name-system.so), but for portability of SDF
   # files, we also install an unversioned symlink into the same versioned folder.
   set(versioned ${CMAKE_SHARED_LIBRARY_PREFIX}${system_target}${CMAKE_SHARED_LIBRARY_SUFFIX})
   set(unversioned ${CMAKE_SHARED_LIBRARY_PREFIX}${PROJECT_NAME_NO_VERSION_LOWER}-${system_name}${CMAKE_SHARED_LIBRARY_SUFFIX})
