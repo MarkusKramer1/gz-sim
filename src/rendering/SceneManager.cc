@@ -45,6 +45,15 @@
 #include <gz/common/StringUtils.hh>
 #include <gz/common/Uuid.hh>
 
+#include <gz/math/Color.hh>
+#include <gz/math/Helpers.hh>
+#include <gz/math/Inertial.hh>
+#include <gz/math/Matrix4.hh>
+#include <gz/math/Pose3.hh>
+#include <gz/math/Quaternion.hh>
+#include <gz/math/Vector2.hh>
+#include <gz/math/Vector3.hh>
+
 #include <gz/msgs/Utility.hh>
 
 #include "gz/rendering/Capsule.hh"
@@ -800,6 +809,7 @@ rendering::MaterialPtr SceneManager::LoadMaterial(
   material->SetAmbient(_material.Ambient());
   material->SetDiffuse(_material.Diffuse());
   material->SetSpecular(_material.Specular());
+  material->SetShininess(_material.Shininess());
   material->SetEmissive(_material.Emissive());
   material->SetRenderOrder(_material.RenderOrder());
 
